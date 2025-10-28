@@ -1,0 +1,47 @@
+{% extends 'basecrud.html' %}
+{% block table %}
+ <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Descripcion</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in eventos%}
+          <tr>
+            <td>{{ object.titulo }}</td>
+            <td>{{ object.descripcion }}</td>
+            <td>{{ object.fecha }}</td>
+            <td>
+              <a
+                href="{% url 'eventos' object.id %}"
+                class="btn btn-warning btn-sm"
+              >
+                Editar
+              </a>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  onclick="abrirModalEliminar({{ object.id }}, '{{ object.titulo }}')"
+                >
+                  Eliminar
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No se encontraron registros.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script>
+        $(document).ready(function() {
+            $("#buscador").attr('placeholder',"Buscar por Titulo o Descripcion");
+        });
+  </script>
+{% endblock %}
